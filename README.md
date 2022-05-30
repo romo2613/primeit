@@ -1,4 +1,4 @@
-# Laravel - Candidato: {>> Nombre <<}
+# Laravel - Candidato: Javier Romero Jódar
 
 La prueba consiste en realizar, de forma totalmente libre, un proyecto que cumpla con todos los puntos definidos a continuación:
 
