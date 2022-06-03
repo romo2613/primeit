@@ -1,6 +1,6 @@
 <?php
 
-namespace Src\BoundedContext\Product\Aplication\Responses;
+namespace Src\BoundedContext\Product\Application\Responses;
 
 use Src\BoundedContext\Product\Domain\Products;
 

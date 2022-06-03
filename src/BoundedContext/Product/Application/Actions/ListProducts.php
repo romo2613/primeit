@@ -2,8 +2,8 @@
 
 namespace Src\BoundedContext\Product\Application\Actions;
 
-use Src\BoundedContext\Product\Aplication\Responses\ProductResponse;
-use Src\BoundedContext\Product\Aplication\Responses\ProductsResponse;
+use Src\BoundedContext\Product\Application\Responses\ProductResponse;
+use Src\BoundedContext\Product\Application\Responses\ProductsResponse;
 use Src\BoundedContext\Product\Domain\ProductRepository;
 
 class ListProduct {
