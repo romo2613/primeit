@@ -2,14 +2,14 @@
 
 namespace Src\User\Domain;
 
-final class UserIs{
+final class UserId{
 
     /**
      * @var int
      */
 
 
-     private $id;
+    private $id;
 
     public function __construct($id){
 
@@ -19,5 +19,18 @@ final class UserIs{
     public function id(){
 
         return $this->id;
+    }
+
+    /**
+     * @param int $id
+     */
+
+    public function setId(int $id): void
+    {
+        if($id < 0){
+            throw new IdNotFound($id);
+        }
+
+        $this->id = $id;
     }
 }

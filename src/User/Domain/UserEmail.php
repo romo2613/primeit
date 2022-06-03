@@ -2,11 +2,11 @@
 
 namespace Src\User\Domain;
 
-final class{
+final class UserEmail{
 
-/**
- * @var string
- */
+    /**
+     * @var string
+     */
 
     private $email;
 
