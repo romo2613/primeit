@@ -3,6 +3,8 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Src\Shared\Domain\UuidGenerator;
+use Src\Shared\Infrastructure\RamseyUuidGenerator;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -13,7 +15,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        $this->app->bind(
+            UuidGenerator::class,
+            RamseyUuidGenerator::class,
+        );
     }
 
     /**
@@ -23,6 +28,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        //cargar las migraciones desde BoundedContext
+
+        $this->loadMigrationsFrom(
+            \File::allFiles(base_path('src/BoundedContext/**/Infrastructure/migrations'))
+        );
     }
 }
