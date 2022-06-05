@@ -6,14 +6,14 @@ use Src\BoundedContext\Product\Application\Responses\ProductResponse;
 use Src\BoundedContext\Product\Application\Responses\ProductsResponse;
 use Src\BoundedContext\Product\Domain\ProductRepository;
 
-class ListProduct {
+class ListProducts {
 
-    private function __construct(private ProductRepository $repository) {}
+    public function __construct(private ProductRepository $repository) {}
 
     public function __invoke(): ProductsResponse
     {
         $products = $this->repository->list();
 
-        return ProductResponse::fromProduct($products);
+        return ProductsResponse::fromProducts($products);
     }
 }

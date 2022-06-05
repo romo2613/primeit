@@ -1,6 +1,6 @@
 <?php
 
-namespace Src\Shared\Infrastructure;
+namespace Src\Shared\Infrastructure\Persistence\Eloquent;
 
 use Src\Shared\Infrastructure\InfrastructureException;
 
