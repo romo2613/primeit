@@ -9,7 +9,7 @@ final class CategoriesResponse {
     public function __construct(private array $Categories) {}
 
 
-    public static function fromCategories(Categories $Categorys): self {
+    public static function fromCategories(Categories $Categories): self {
 
         $CategoryResponses = array_map (
 
@@ -17,7 +17,7 @@ final class CategoriesResponse {
                 return CategoryResponse::fromCategory($Category);
             },
 
-            $Categorys->all()
+            $Categories->all()
         );
 
         return new self($CategoryResponses);
@@ -29,6 +29,6 @@ final class CategoriesResponse {
 
             return $CategoryResponse->toArray();
 
-        }, $this->Categorys);
+        }, $this->Categories);
     }
 }

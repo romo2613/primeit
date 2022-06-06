@@ -4,12 +4,12 @@ namespace Src\BoundedContext\Category\Infrastructure\Controllers;
 
 
 use App\Http\Controllers\Controller;
-use Src\BoundedContext\Category\Application\Actions\ListCategorys;
+use Src\BoundedContext\Category\Application\Actions\ListCategories;
 use Src\BoundedContext\Category\Infrastructure\Persistence\Eloquent\CategoryRepository;
 use Illuminate\Http\JsonResponse;
 use Symfony\Component\HttpFoundation\Response as ResponseAlias;
 
-final class ListCategorysGetController extends Controller {
+final class ListCategoriesGetController extends Controller {
 
     public function __construct(private CategoryRepository $repository){}
 
@@ -19,7 +19,7 @@ final class ListCategorysGetController extends Controller {
 
         return new JsonResponse(
             [
-                'categorys' => $categoriesResponse->toArray()
+                'categories' => $categoriesResponse->toArray()
             ],
             ResponseAlias::HTTP_OK,
         );

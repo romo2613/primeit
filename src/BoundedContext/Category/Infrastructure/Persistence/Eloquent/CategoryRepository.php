@@ -5,7 +5,7 @@ namespace Src\BoundedContext\Category\Infrastructure\Persistence\Eloquent;
 
 use Src\BoundedContext\Category\Domain\{
     Category,
-    Categorys,
+    Categories,
     CategoryAlreadyExists,
     CategoryRepository as CategoryRepositoryContract,
     ValueObjects\CategoryId,
@@ -41,9 +41,9 @@ final class CategoryRepository implements CategoryRepositoryContract {
 
     public function list(): Categories {
 
-        $eloquentCategorys = $this->model->all();
+        $eloquentCategories = $this->model->all();
 
-        $categories = $eloquentCategorys->map(
+        $categories = $eloquentCategories->map(
             function (CategoryModel $eloquentCategory){
                 return $this->toDomain($eloquentCategory);
             }

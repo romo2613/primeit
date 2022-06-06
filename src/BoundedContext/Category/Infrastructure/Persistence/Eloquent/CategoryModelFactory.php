@@ -12,7 +12,6 @@ final class CategoryModelFactory extends Factory
     {
         return [
             'id' => $this->faker->uuid,
-            'name' => $this->faker->company
         ];
     }
 }

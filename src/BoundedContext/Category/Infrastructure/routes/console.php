@@ -1,14 +1,13 @@
 <?php
 
-use Src\BoundedContext\category\Application\Actions\Listcategorys;
-use Src\BoundedContext\category\Infrastructure\Persistence\Eloquent\categoryRepository;
+use Src\BoundedContext\Category\Application\Actions\Listcategories;
+use Src\BoundedContext\Category\Infrastructure\Persistence\Eloquent\categoryRepository;
 use Illuminate\Support\Facades\Artisan;
-use Src\BoundedContext\category\Domain\category;
-use Src\BoundedContext\category\Infrastructure\Persistence\Eloquent\categoryModelFactory;
+use Src\BoundedContext\Category\Infrastructure\Persistence\Eloquent\CategoryModelSeeder;
 
-Artisan::command("primeit:list-categories", function (categoryRepository $repository){
+Artisan::command("primeit:list-categories", function (CategoryRepository $repository){
 
-    $categoryResponse = (new Listcategories($repository))();
+    $categoryResponse = (new ListCategories($repository))();
 
     $headers = ["Id", "category"];
 
@@ -18,7 +17,6 @@ Artisan::command("primeit:list-categories", function (categoryRepository $reposi
 
 Artisan::command("primeit:generate-categories", function (){
 
-    $categoryFactory = new CategoryModelFactory(20);
-    $categoryFactory->create();
+    (new CategoryModelSeeder())->seeder();
 
 });

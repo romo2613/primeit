@@ -1,6 +1,6 @@
 <?php
 
-use Src\BoundedContext\Product\Infrastructure\Controllers\{
+use Src\BoundedContext\Category\Infrastructure\Controllers\{
     CreateCategoryPostController,
     ListCategoriesGetController,
 };
