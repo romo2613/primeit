@@ -6,5 +6,5 @@ use Src\BoundedContext\User\Infrastructure\Controllers\{
 };
 
 
-Route::get("users", ListUsersGetController::class);
-Route::post("users", CreateUserPostController::class);
+Route::get("hx-users", ListUsersGetController::class);
+Route::post("hx-users", CreateUserPostController::class);

@@ -6,5 +6,5 @@ use Src\BoundedContext\Product\Infrastructure\Controllers\{
 };
 
 
-Route::get("products", ListProductsGetController::class);
-Route::post("products", CreateProductPostController::class);
+Route::get("hx-products", ListProductsGetController::class);
+Route::post("hx-products", CreateProductPostController::class);
