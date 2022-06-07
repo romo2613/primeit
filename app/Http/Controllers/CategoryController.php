@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use Illuminate\Http\Request;
+use App\Http\Requests\CategoryRequest;
+use App\Models\SubCategory;
 
 class CategoryController extends Controller
 {
@@ -14,7 +16,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        return Category::all();
+        return Category::with('subCategories')->get();
     }
 
     /**
@@ -24,7 +26,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        //
+
     }
 
     /**
@@ -33,9 +35,28 @@ class CategoryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CategoryRequest $request)
     {
-        //
+        $data = $request->validated();
+
+        // dd($data);
+
+        $category = new Category;
+        $category->name = $data['name'];
+        $category->save();
+
+        if(isset($data['subcategories'])){
+
+            foreach($data['subcategories'] as $subCategory){
+                $modelSubCategory = new SubCategory;
+                $modelSubCategory->name = $subCategory;
+                $modelSubCategory->category_id = $category->id;
+                $modelSubCategory->save();
+            }
+
+
+        }
+        return $this->show($category->id);
     }
 
     /**
@@ -46,7 +67,7 @@ class CategoryController extends Controller
      */
     public function show($id)
     {
-        $categoria = Category::findOrFail($id)->with('subCategories')->first();
+        $categoria = Category::with('subCategories')->findOrFail($id);
 
         return $categoria->toArray();
     }
