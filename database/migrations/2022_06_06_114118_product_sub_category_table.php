@@ -19,8 +19,7 @@ return new class extends Migration
                 ->constrained()
                 ->onDelete('cascade');
             $table->foreignId('sub_category_id')
-                ->constrained()
-                ->onDelete('set null');
+                ->constrained();
             $table->timestamps();
         });
     }
@@ -32,7 +31,7 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('category_product');
+        Schema::dropIfExists('product_sub_category');
 
     }
 };

@@ -8,7 +8,7 @@ use App\Http\Requests\ProductRequest;
 use App\Models\Image;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\File;
-
+use Illuminate\Support\Str;
 
 class ProductController extends Controller
 {
@@ -42,8 +42,6 @@ class ProductController extends Controller
      */
     public function store(ProductRequest $request)
     {
-
-
         $data = $request->validated();
 
         $product = new Product;
@@ -61,9 +59,9 @@ class ProductController extends Controller
      * @param  \App\Models\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function show(Product $product)
+    public function show($id)
     {
-        //
+        return Product::findOrFail($id);
     }
 
     /**
@@ -106,13 +104,24 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
-        Product::destroy($id);
-
         $product = Product::findOrFail($id);
+
+        $images = $product->images;
+
+
+        if(count($images) != 0){
+            foreach ($images as $image) {
+
+                $directory = explode('/',$image->url)[0];
+
+                Storage::disk('public')->deleteDirectory($directory);
+
+            }
+        }
 
         $product->images()->detach();
 
-        $product->destroy();
+        $product->delete();
 
         return response()->json(['success' => 'successful removal'], 200);
     }
@@ -125,7 +134,7 @@ class ProductController extends Controller
 
             foreach ($data['images'] as $image) {
 
-                $name = $image->getClientOriginalName();
+                $name = Str::uuid().$image->getClientOriginalName();
 
                 $imageModel = new Image;
                 $imageModel->url = Storage::disk('public')->putFileAs($ruta, new File($image), $name);

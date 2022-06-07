@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Image;
+use App\Models\Product;
+use Database\Factories\ProductFactory;
 use Illuminate\Http\Request;
 
 class ImageController extends Controller
@@ -44,9 +46,11 @@ class ImageController extends Controller
      * @param  \App\Models\Image  $image
      * @return \Illuminate\Http\Response
      */
-    public function show(Image $image)
+    public function show($id)
     {
-        //
+        $product = Product::findOrFail($id);
+
+        return $product->images;
     }
 
     /**
@@ -78,7 +82,7 @@ class ImageController extends Controller
      * @param  \App\Models\Image  $image
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Image $image)
+    public function destroy($id)
     {
         //
     }
