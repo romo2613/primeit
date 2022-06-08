@@ -16,7 +16,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        return Category::with('subCategories');
+        return Category::with('subCategories')->get();
     }
 
     /**
@@ -51,7 +51,6 @@ class CategoryController extends Controller
                 $modelSubCategory->category_id = $category->id;
                 $modelSubCategory->save();
             }
-
 
         }
         return $this->show($category->id);
@@ -88,9 +87,12 @@ class CategoryController extends Controller
      * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(CategoryRequest $request, $id)
     {
+        //nombre campo del formulario: subcategories[id]
+
         $data = $request->validated();
+
 
         $category = Category::findOrFail($id);
         $category->name = $data['name'];
@@ -98,18 +100,12 @@ class CategoryController extends Controller
 
         if(isset($data['subcategories'])){
 
-            foreach($data['subcategories'] as $subCategory){
+            foreach($data['subcategories'] as $key => $subCategory){
 
-
-                $modelSubCategory = new SubCategory;
+                $modelSubCategory = SubCategory::findOrFail($key);
                 $modelSubCategory->name = $subCategory;
-                $modelSubCategory->category_id = $category->id;
                 $modelSubCategory->save();
-
-
             }
-
-
         }
         return $this->show($category->id);
     }
@@ -120,8 +116,10 @@ class CategoryController extends Controller
      * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Category $category)
+    public function destroy($id)
     {
-        //
+        Category::destroy($id);
+
+        return response()->json(['success' => 'category successful removal'], 200);
     }
 }

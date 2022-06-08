@@ -106,24 +106,9 @@ class ProductController extends Controller
     {
         $product = Product::findOrFail($id);
 
-        $images = $product->images;
-
-
-        if(count($images) != 0){
-            foreach ($images as $image) {
-
-                $directory = explode('/',$image->url)[0];
-
-                Storage::disk('public')->deleteDirectory($directory);
-
-            }
-        }
-
-        $product->images()->detach();
-
         $product->delete();
 
-        return response()->json(['success' => 'successful removal'], 200);
+        return response()->json(['success' => 'Product successful removal'], 200);
     }
 
     private function savePhoto($data, Product $product){

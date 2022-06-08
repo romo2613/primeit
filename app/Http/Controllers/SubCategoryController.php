@@ -78,8 +78,10 @@ class SubCategoryController extends Controller
      * @param  \App\Models\SubCategory  $subCategory
      * @return \Illuminate\Http\Response
      */
-    public function destroy(SubCategory $subCategory)
+    public function destroy($id)
     {
-        //
+        SubCategory::destroy($id);
+
+        return response()->json(['success' => 'subcategory successful removal'], 200);
     }
 }

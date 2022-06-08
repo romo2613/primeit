@@ -16,10 +16,10 @@ return new class extends Migration
         Schema::create('product_sub_category', function (Blueprint $table) {
             $table->id();
             $table->foreignId('product_id')
+                ->constrained();
+            $table->foreignId('sub_category_id')
                 ->constrained()
                 ->onDelete('cascade');
-            $table->foreignId('sub_category_id')
-                ->constrained();
             $table->timestamps();
         });
     }

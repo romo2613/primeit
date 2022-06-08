@@ -25,7 +25,8 @@ class CategoryRequest extends FormRequest
     {
         return [
             'name' => 'required|min:1|max:255',
-            'subcategories.*' => 'nullable|min:1|max:255'
+            'subcategories' => 'array',
+            'subcategories.*' => 'nullable|min:1|max:255',
         ];
     }
 }

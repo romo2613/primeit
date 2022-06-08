@@ -38,9 +38,22 @@ class ProductObserver
      * @param  \App\Models\Product  $product
      * @return void
      */
-    public function deleted(Product $product)
+    public function deleting(Product $product)
     {
-        //
+        $images = $product->images;
+
+
+        if(count($images) != 0){
+            foreach ($images as $image) {
+
+                $directory = explode('/',$image->url)[0];
+
+                Storage::disk('public')->deleteDirectory($directory);
+
+            }
+        }
+
+        $product->images()->detach();
     }
 
     /**

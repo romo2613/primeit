@@ -3,7 +3,9 @@
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ImageController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\SubCategoryController;
 use App\Http\Controllers\UserController;
+use App\Models\SubCategory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -22,8 +24,13 @@ use Illuminate\Support\Facades\Route;
 //     return $request->user();
 // });
 
-Route::apiResource('users', UserController::class);
-Route::apiResource('products', ProductController::class);
-Route::get('products/{id}/images', [ImageController::class, 'show']);
-Route::apiResource('images', ImageController::class);
-Route::apiResource('categories', CategoryController::class);
+Route::group(['middleware' => ['myApi']], function () {
+    Route::apiResource('users', UserController::class);
+    Route::apiResource('products', ProductController::class);
+    Route::apiResource('images', ImageController::class);
+    Route::apiResource('categories', CategoryController::class);
+    Route::apiResource('subcategories', SubCategoryController::class);
+});
+
+
+
