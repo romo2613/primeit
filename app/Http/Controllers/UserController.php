@@ -15,7 +15,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::all();
+        $users = User::with('roles')->paginate(10);
         return $users;
     }
 
@@ -47,7 +47,9 @@ class UserController extends Controller
 
         $user->save();
 
-        return $user;
+        $user->assignRole($data['role']);
+
+        return $this->show($user->id);
     }
 
     /**
@@ -58,7 +60,7 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        $user = User::findOrFail($id);
+        $user = User::with('roles')->findOrFail($id);
         return $user;
     }
 
@@ -91,7 +93,9 @@ class UserController extends Controller
 
         $user->save();
 
-        return $user;
+        $user->assignRole($data['role']);
+
+        return $this->show($user->id);
     }
 
     /**

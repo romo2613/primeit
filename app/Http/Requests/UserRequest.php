@@ -24,9 +24,10 @@ class UserRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|max:254',
-            'email' => 'required|max:255|email|unique:users,email,'.$this->usuario.',id',
-            'password' => 'required|max:255|min:8'
+            'name'     => 'required|max:254',
+            'email'    => 'required|max:255|email|unique:users,email,'.$this->user.',id',
+            'password' => 'required|max:255|min:8',
+            'role'     => 'required|in:administrador,moderador,comercial',
         ];
     }
 }

@@ -16,7 +16,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        return Category::with('subCategories')->get();
+        return Category::with('subCategories');
     }
 
     /**
@@ -38,8 +38,6 @@ class CategoryController extends Controller
     public function store(CategoryRequest $request)
     {
         $data = $request->validated();
-
-        // dd($data);
 
         $category = new Category;
         $category->name = $data['name'];
@@ -90,9 +88,30 @@ class CategoryController extends Controller
      * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Category $category)
+    public function update(Request $request, $id)
     {
-        //
+        $data = $request->validated();
+
+        $category = Category::findOrFail($id);
+        $category->name = $data['name'];
+        $category->save();
+
+        if(isset($data['subcategories'])){
+
+            foreach($data['subcategories'] as $subCategory){
+
+
+                $modelSubCategory = new SubCategory;
+                $modelSubCategory->name = $subCategory;
+                $modelSubCategory->category_id = $category->id;
+                $modelSubCategory->save();
+
+
+            }
+
+
+        }
+        return $this->show($category->id);
     }
 
     /**

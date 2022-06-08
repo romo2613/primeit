@@ -19,9 +19,9 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = Product::all();
+        $products = Product::with('images')->paginate(10);
 
-        return $products->toArray();
+        return $products;
     }
 
     /**
@@ -50,7 +50,7 @@ class ProductController extends Controller
 
         $this->savePhoto($data, $product);
 
-        return $product->toArray();
+        return $this->show($product->id);
     }
 
     /**
@@ -61,7 +61,7 @@ class ProductController extends Controller
      */
     public function show($id)
     {
-        return Product::findOrFail($id);
+        return Product::with('images')->findOrFail($id);
     }
 
     /**
